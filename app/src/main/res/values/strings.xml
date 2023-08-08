@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name" translatable="false">PrintID TCP</string>
+
+    <string name="host" translatable="false">Host</string>
+    <string name="port">Port</string>
+    <string name="save">Save</string>
+    <string name="settings">Settings</string>
+
+</resources>
