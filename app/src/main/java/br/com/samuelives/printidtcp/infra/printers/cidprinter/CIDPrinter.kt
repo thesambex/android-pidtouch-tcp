@@ -9,7 +9,6 @@ class CIDPrinter(private val host: String, private val port: Int) : PrinterInter
     private val printer = CidPrinter(host, port)
 
     private var _error: String? = null
-    val error: String? get() = _error
 
     override fun connect(): Boolean {
 
@@ -32,7 +31,7 @@ class CIDPrinter(private val host: String, private val port: Int) : PrinterInter
         )
     }
 
-    override fun lastError(): String? = error
+    override fun lastError(): String? = _error
 
     companion object {
         private const val TAG = "cid_printer"

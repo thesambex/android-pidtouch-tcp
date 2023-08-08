@@ -11,7 +11,7 @@ class CidPrinterTest {
         val printer = CIDPrinter("0.0.0.0", 9100)
 
         val isConnected = printer.connect()
-        assert(isConnected) { "Falha ao se conectar com a impressora via TCP/IP: ${printer.error}" }
+        assert(isConnected) { "Falha ao se conectar com a impressora via TCP/IP: ${printer.lastError()}" }
 
         val data = printer.printerData()
         println("Printer data ${data.vendor} model ${data.model} serial number ${data.serial} firmware ${data.firmwareVersion}")
