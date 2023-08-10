@@ -6,14 +6,20 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -42,17 +48,16 @@ class SettingsActivity : ComponentActivity() {
 
     @Preview
     @Composable
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     private fun Content() {
 
         Scaffold(
-            modifier = Modifier.fillMaxSize(),
             topBar = { TopBar() }
-        ) {
+        ) { paddingValues ->
 
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .fillMaxSize()
+                    .padding(paddingValues)
             ) {
 
                 OutlinedTextField(
@@ -63,7 +68,9 @@ class SettingsActivity : ComponentActivity() {
                             text = stringResource(id = R.string.host)
                         )
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp, start = 16.dp, end = 16.dp)
                 )
 
                 OutlinedTextField(
@@ -77,13 +84,13 @@ class SettingsActivity : ComponentActivity() {
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 8.dp)
+                        .padding(top = 8.dp, start = 16.dp, end = 16.dp)
                 )
 
                 OutlinedButton(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 8.dp),
+                        .padding(top = 8.dp, start = 16.dp, end = 16.dp),
                     onClick = {
                         vm.save()
                         finish()
@@ -99,6 +106,15 @@ class SettingsActivity : ComponentActivity() {
 
     @Composable
     private fun TopBar() {
+
+        TopAppBar(
+            title = { Text(text = stringResource(id = R.string.settings)) },
+            navigationIcon = {
+                IconButton(onClick = { finish() }) {
+                    Icon(Icons.Outlined.ArrowBack, contentDescription = null)
+                }
+            }
+        )
 
     }
 

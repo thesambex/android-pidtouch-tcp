@@ -11,6 +11,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.samuelives.printidtcp.App
 import br.com.samuelives.printidtcp.common.Constants
+import br.com.samuelives.printidtcp.domain.repository.SettingsRepository
 import br.com.samuelives.printidtcp.preferencesDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +21,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsVM @Inject constructor(application: Application) : AndroidViewModel(application) {
+class SettingsVM @Inject constructor(
+    application: Application,
+    private val settingsRepository: SettingsRepository
+) : AndroidViewModel(application) {
 
     var host by mutableStateOf("")
     var port by mutableStateOf(9100)
@@ -35,8 +39,9 @@ class SettingsVM @Inject constructor(application: Application) : AndroidViewMode
     private fun loadPreferences() {
 
         viewModelScope.launch {
-            host = preferencesDataStore.data.first()[Constants.PRINTER_HOST_PREFERENCE] ?: ""
-            port = preferencesDataStore.data.first()[Constants.PRINTER_PORT_PREFERENCE] ?: 9100
+            val settings = settingsRepository.printerSettings()
+            host = settings.host ?: ""
+            port = settings.port
         }
 
     }

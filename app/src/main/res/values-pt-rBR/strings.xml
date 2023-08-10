@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="home">Início</string>
     <string name="port">Porta</string>
     <string name="save">Salvar</string>
     <string name="settings">Configurações</string>
