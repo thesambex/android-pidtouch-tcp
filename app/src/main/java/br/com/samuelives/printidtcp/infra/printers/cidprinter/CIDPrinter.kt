@@ -33,6 +33,28 @@ class CIDPrinter(private val host: String, private val port: Int) : PrinterInter
 
     override fun lastError(): String? = _error
 
+    override fun print(text: String) {
+        try {
+
+            // O objetivo aqui é apenas imprimir o qr code separadamente, não processar o texto
+            val parts = text.split("{qr}")
+            for ((index, part) in parts.withIndex()) {
+                if (index % 2 == 0) {
+                    printer.SendStringToPrinter(part)
+                } else {
+                    printer.ImprimirCodigoQR(part)
+                }
+            }
+
+
+            printer.AtivarGuilhotina(CidPrinter.TipoCorte.TOTAL)
+            printer.Finalizar()
+
+        } catch (e: Exception) {
+            _error = e.message
+        }
+    }
+
     companion object {
         private const val TAG = "cid_printer"
     }
