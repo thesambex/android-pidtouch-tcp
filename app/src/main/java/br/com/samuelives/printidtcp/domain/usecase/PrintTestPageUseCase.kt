@@ -32,6 +32,7 @@ class PrintTestPageUseCase @Inject constructor(
 
         sb.append("Phone model: ").append(Build.MODEL).append("\n\n")
 
+        // Aparentemente a biblioteca vai gerar automaticamente o QR-code, apenas adicionei {qr}
         sb.append("{qr}https://www.controlid.com.br/automacao-comercial/printid-touch/{qr}")
 
         printer.print(sb.toString())
